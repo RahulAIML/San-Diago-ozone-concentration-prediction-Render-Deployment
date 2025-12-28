@@ -2,15 +2,15 @@ import sqlite3
 import pandas as pd
 import json
 
-DB_PATH = 'd:/Ozone_Project_7th_dec/django_backend/db.sqlite3'
+DB_PATH = 'd:/Ozone_Project_7th_dec/django_backend/db.sqlite3'  ## serverless, light weight database
 
 def view_logs():
     try:
         conn = sqlite3.connect(DB_PATH)
-        query = "SELECT * FROM api_predictionlog ORDER BY created_at DESC LIMIT 10"
+        query = "SELECT * FROM api_predictionlog ORDER BY created_at DESC LIMIT 15"
         df = pd.read_sql_query(query, conn)
         
-        print(f"\n--- Last 10 Predictions from {DB_PATH} ---\n")
+        print(f"\n--- Last 15 Predictions from {DB_PATH} ---\n")
         
         if df.empty:
             print("No logs found.")

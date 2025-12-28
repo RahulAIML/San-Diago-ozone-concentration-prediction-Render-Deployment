@@ -9,14 +9,16 @@ import os
 from django.conf import settings
 
 # --- Load Artifacts ---
-MODEL_DIR = 'd:/Ozone_Project_7th_dec/model_artifacts'
+# MODEL_DIR = 'd:/Ozone_Project_7th_dec/model_artifacts' # OLD HARDCODED
+# Use relative path: BASE_DIR is .../django_backend, so we go up one level to find model_artifacts
+MODEL_DIR = os.path.join(settings.BASE_DIR.parent, 'model_artifacts')
 model_artifacts = {}
 
 try:
     model_artifacts['model'] = joblib.load(os.path.join(MODEL_DIR, 'ozone_model.pkl'))
     model_artifacts['imputer'] = joblib.load(os.path.join(MODEL_DIR, 'imputer.pkl'))
     model_artifacts['feature_names'] = joblib.load(os.path.join(MODEL_DIR, 'feature_names.pkl'))
-    model_artifacts['kmeans'] = joblib.load(os.path.join(MODEL_DIR, 'kmeans.pkl'))
+    model_artifacts['kmeans'] = joblib.load(os.path.join(MODEL_DIR, 'kmeans.pkl'))  # regime alalysis
     model_artifacts['scaler_regime'] = joblib.load(os.path.join(MODEL_DIR, 'scaler_regime.pkl'))
     model_artifacts['regime_cols'] = joblib.load(os.path.join(MODEL_DIR, 'regime_cols.pkl'))
     print("Model artifacts loaded successfully.")
@@ -40,7 +42,7 @@ def get_regime_description(cluster_id):
     return mapping.get(cluster_id, "Unknown")
 
 
-@api_view(['GET'])
+@api_view(['GET'])  # when you are asking for input data
 def health_check(request):
     """
     Simple health check endpoint to verify API is running.

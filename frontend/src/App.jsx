@@ -36,7 +36,8 @@ function App() {
 
   const fetchLogs = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/logs/');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await axios.get(`${apiUrl}/api/logs/`);
       setLogs(response.data);
     } catch (err) {
       console.error("Failed to fetch logs", err);
@@ -59,7 +60,8 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8000/api/predict/', formData);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await axios.post(`${apiUrl}/api/predict/`, formData);
       setPrediction(response.data.prediction);
       fetchLogs();
     } catch (err) {
