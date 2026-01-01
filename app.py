@@ -7,13 +7,13 @@ import joblib
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='frontend/dist')
-CORS(app)
-
 # --- Configuration ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, 'model_artifacts')
 DB_PATH = os.path.join(BASE_DIR, 'database.db')
+
+app = Flask(__name__, static_folder=os.path.join(BASE_DIR, 'frontend/dist'))
+CORS(app)
 
 # --- Database Setup ---
 def init_db():
