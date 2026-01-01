@@ -1,13 +1,24 @@
 import sqlite3
 import pandas as pd
-import json
+import os
 
-DB_PATH = 'd:/Ozone_Project_7th_dec/django_backend/db.sqlite3'  ## serverless, light weight database
+DB_PATH = 'database.db'
 
 def view_logs():
+    if not os.path.exists(DB_PATH):
+        print(f"Database not found at {DB_PATH}")
+        return
+
     try:
         conn = sqlite3.connect(DB_PATH)
-        query = "SELECT * FROM api_predictionlog ORDER BY created_at DESC LIMIT 15"
+        # Check if table exists
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='prediction_logs';")
+        if not cursor.fetchone():
+            print("Table 'prediction_logs' does not exist yet.")
+            return
+
+        query = "SELECT * FROM prediction_logs ORDER BY created_at DESC LIMIT 15"
         df = pd.read_sql_query(query, conn)
         
         print(f"\n--- Last 15 Predictions from {DB_PATH} ---\n")

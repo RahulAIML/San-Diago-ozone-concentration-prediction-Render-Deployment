@@ -1,32 +1,11 @@
 services:
-  # Python Backend
   - type: web
-    name: ozone-backend
-    runtime: python
-    region: singapore
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn ozone_api.wsgi:application" # Running from rootDir: django_backend
+    name: ozone-predictor
+    env: python
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && pip install -r requirements.txt
+    startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
-      - key: SECRET_KEY
-        generateValue: true
-      - key: DEBUG
-        value: "False"
-      - key: ALLOWED_HOSTS
-        value: "*"
-    rootDir: django_backend
-
-  # Frontend (Static Site)
-  - type: web
-    name: ozone-frontend
-    runtime: static
-    buildCommand: "npm install && npm run build"
-    staticPublishPath: "./dist"
-    rootDir: frontend
-    envVars:
+        value: 3.9.0
       - key: VITE_API_URL
-        fromService:
-            type: web
-            name: ozone-backend
-            property: host
+        value: "" 
