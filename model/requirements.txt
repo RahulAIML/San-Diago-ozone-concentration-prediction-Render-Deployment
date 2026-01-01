@@ -1,5 +1,0 @@
-pandas
-xgboost
-scikit-learn
-joblib
-numpy
