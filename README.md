@@ -1,35 +1,53 @@
-# Ozone Ocean Prediction Project
+# Ozone Ocean Predictor - San Diego
 
-This project implements a Machine Learning system to predict Ozone concentrations in San Diego using Oceanographic and Meteorological data.
+This is an academic project designed to predict Ozone levels in San Diego based on Ocean Upwelling indices (CUTI/BEUTI) and meteorological data.
 
-## Project Structure
-- `model/`: Data Science scripts (Training, Evaluation, Regime Analysis).
-- `backend/`: FastAPI application to serve the model.
-- `frontend/`: React application for the user interface.
-- `metrics/`: Performance metrics of the trained model.
+## 🚀 Features
+- **Machine Learning Model**: Uses Random Forest/XGBoost to forecast Ozone levels.
+- **Interactive Frontend**: React-based UI for inputting parameters and viewing predictions.
+- **Advanced EDA**: Comprehensive exploratory data analysis plots available in `report_plots/`.
+- **Regime Detection**: Identifies atmospheric regimes based on upwelling and temperature.
+- **Lightweight Backend**: Minimal Flask API replacing the original Django backend for easier deployment.
 
-## How to Run
+## 🛠️ Tech Stack
+- **Frontend**: React (Vite), TailwindCSS, Recharts.
+- **Backend**: Python (Flask), SQLite.
+- **Data Science**: Pandas, Scikit-learn, Seaborn.
+- **Deployment**: Configured for Render.com.
+
+## 🏃‍♂️ Running Locally
 
 ### Prerequisites
-- Python 3.8+
-- Node.js 16+
+- Python 3.9+
+- Node.js & npm
 
-### 1. Start the Backend
-The backend serves the prediction API.
-Open a terminal in the root folder (`d:\Ozone_Project_7th_dec`) and run:
+### Steps
+1. **Clone the repository** (if not already done).
+2. **Install Backend Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Build Frontend**:
+   ```bash
+   cd frontend
+   npm install
+   npm run build
+   cd ..
+   ```
+4. **Run the Application**:
+   ```bash
+   python app.py
+   ```
+   The app will be available at `http://localhost:5000`.
+
+## 📊 Analytics
+Check the `report_plots/` directory for generated visualizations:
+- `wind_rose_approximation.png`: Wind patterns.
+- `3d_ozone_temp_cuti.png`: 3D relationship between temperature, upwelling, and ozone.
+- `ozone_kde_seasonal.png`: Seasonal distribution of ozone levels.
+
+## 🧪 Testing
+Run the end-to-end test suite to verify functionality:
 ```bash
-python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+python test_e2e.py
 ```
-*Wait for "Application startup complete".*
-
-### 2. Start the Frontend
-The frontend is the web interface.
-Open a **new** terminal in the `frontend` folder (`d:\Ozone_Project_7th_dec\frontend`) and run:
-```bash
-npm run dev
-```
-Then open your browser and navigate to the URL shown (usually `http://localhost:5173`).
-
-## Features
-- **Interactive Dashboard**: Adjust Temperature, Wind, and Upwelling (CUTI) to see real-time predictions.
-- **Regime Detection**: The system identifies if the current conditions match a "Marine Dominated" or "Stagnant" regime.
