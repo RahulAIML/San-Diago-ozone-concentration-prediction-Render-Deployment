@@ -2,7 +2,7 @@
 
 This is an academic project designed to predict Ozone levels in San Diego based on Ocean Upwelling indices (CUTI/BEUTI) and meteorological data.
 
-## 🚀 Features
+## 🚀Features
 - **Machine Learning Model**: Uses Random Forest/XGBoost to forecast Ozone levels.
 - **Interactive Frontend**: React-based UI for inputting parameters and viewing predictions.
 - **Advanced EDA**: Comprehensive exploratory data analysis plots available in `report_plots/`.
